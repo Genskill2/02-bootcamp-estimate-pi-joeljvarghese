@@ -1,6 +1,32 @@
 import math
 import unittest
+import random
 
+def wallis (n): #  Function to estimate pi using the WALLIS ESTIMATION 
+    points=1 #intializing  the value
+    for i in range (1,(n+1)):
+        numerator=(pow(i,2)*4)
+        denominator=(pow(i,2)*4)-1
+        points=points*(numerator/denominator) #calculating pi/2 by finding numerator and denominator separately then dividing
+    z=2*points #according to wallis formula
+    return (z)
+
+def monte_carlo (n): #Estmating pi using the MONTE CARLO METHOD 
+    circle=0
+    for i in range (n):
+        x=random.random() #generating random x cordinate
+        y=random.random()
+        point=[x,y]
+        origin=[0,0]
+        z=math.dist(point,origin)  #calculating distance
+        if z<=1:                #checking if distance <=1 (inside the circle)
+            circle=circle+1
+    try:
+        montcarlo_solution=(4*circle)/n   #the monte carlo estimation of pi
+    except:
+        montcarlo_solution=(4*circle)
+    return (montcarlo_solution)
+    
 class TestWallis(unittest.TestCase):
     def test_low_iters(self):
         for i in range(0, 5):
@@ -30,3 +56,5 @@ class TestMC(unittest.TestCase):
     
 if __name__ == "__main__":
     unittest.main()
+
+
